@@ -64,9 +64,6 @@
 
 - (void)setAnimatingWithStateOfTask:(NSURLSessionTask *)task {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-
-    [notificationCenter removeObserver:self name:AFNetworkingTaskDidResumeNotification object:nil];
-    [notificationCenter removeObserver:self name:AFNetworkingTaskDidSuspendNotification object:nil];
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidCompleteNotification object:nil];
     
     if (task) {
@@ -77,10 +74,7 @@
             } else {
                 [activityIndicatorView stopAnimating];
             }
-
-            [notificationCenter addObserver:self selector:@selector(af_startAnimating) name:AFNetworkingTaskDidResumeNotification object:task];
             [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingTaskDidCompleteNotification object:task];
-            [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingTaskDidSuspendNotification object:task];
         }
     }
 }
@@ -105,8 +99,6 @@
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidCompleteNotification object:nil];
-    [notificationCenter removeObserver:self name:AFNetworkingTaskDidResumeNotification object:nil];
-    [notificationCenter removeObserver:self name:AFNetworkingTaskDidSuspendNotification object:nil];
 }
 
 @end

@@ -481,28 +481,6 @@
 
 #pragma mark - private
 
-- (void)_testResumeNotificationForTask:(NSURLSessionTask *)task {
-    [self expectationForNotification:AFNetworkingTaskDidResumeNotification
-                              object:nil
-                             handler:nil];
-    [task resume];
-    [task suspend];
-    [task resume];
-    [self waitForExpectationsWithTimeout:2.0 handler:nil];
-    [task cancel];
-}
-
-- (void)_testSuspendNotificationForTask:(NSURLSessionTask *)task {
-    [self expectationForNotification:AFNetworkingTaskDidSuspendNotification
-                              object:nil
-                             handler:nil];
-    [task resume];
-    [task suspend];
-    [task resume];
-    [self waitForExpectationsWithTimeout:2.0 handler:nil];
-    [task cancel];
-}
-
 - (NSURLRequest *)_delayURLRequest {
     return [NSURLRequest requestWithURL:self.delayURL];
 }

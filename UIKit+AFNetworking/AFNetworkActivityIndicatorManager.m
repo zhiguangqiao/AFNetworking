@@ -74,8 +74,6 @@ typedef void (^AFNetworkActivityActionBlock)(BOOL networkActivityIndicatorVisibl
         return nil;
     }
     self.currentState = AFNetworkActivityManagerStateNotActive;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkRequestDidStart:) name:AFNetworkingTaskDidResumeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkRequestDidFinish:) name:AFNetworkingTaskDidSuspendNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkRequestDidFinish:) name:AFNetworkingTaskDidCompleteNotification object:nil];
     self.activationDelay = kDefaultAFNetworkActivityManagerActivationDelay;
     self.completionDelay = kDefaultAFNetworkActivityManagerCompletionDelay;
@@ -120,16 +118,6 @@ typedef void (^AFNetworkActivityActionBlock)(BOOL networkActivityIndicatorVisibl
     }
 }
 
-
-- (void)incrementActivityCount {
-    @synchronized(self) {
-        self.activityCount++;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateCurrentStateForNetworkActivityChange];
-    });
-}
-
 - (void)decrementActivityCount {
     @synchronized(self) {
         self.activityCount = MAX(_activityCount - 1, 0);
@@ -137,12 +125,6 @@ typedef void (^AFNetworkActivityActionBlock)(BOOL networkActivityIndicatorVisibl
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateCurrentStateForNetworkActivityChange];
     });
-}
-
-- (void)networkRequestDidStart:(NSNotification *)notification {
-    if ([AFNetworkRequestFromNotification(notification) URL]) {
-        [self incrementActivityCount];
-    }
 }
 
 - (void)networkRequestDidFinish:(NSNotification *)notification {

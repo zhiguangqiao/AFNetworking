@@ -454,19 +454,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///--------------------
 
 /**
- Posted when a task resumes.
- */
-FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidResumeNotification;
-
-/**
  Posted when a task finishes executing. Includes a userInfo dictionary with additional information about the task.
  */
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteNotification;
-
-/**
- Posted when a task suspends its execution.
- */
-FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidSuspendNotification;
 
 /**
  Posted when a session is invalidated.

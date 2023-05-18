@@ -80,11 +80,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Use view controller based solutions where appropri
 + (instancetype)sharedManager;
 
 /**
- Increments the number of active network requests. If this number was zero before incrementing, this will start animating the status bar network activity indicator.
- */
-- (void)incrementActivityCount;
-
-/**
  Decrements the number of active network requests. If this number becomes zero after decrementing, this will stop animating the status bar network activity indicator.
  */
 - (void)decrementActivityCount;
