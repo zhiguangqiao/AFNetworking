@@ -341,12 +341,12 @@ static NSString * const AFNSURLSessionTaskDidResumeNotification  = @"com.alamofi
 static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofire.networking.nsurlsessiontask.suspend";
 
 @interface _AFURLSessionTaskSwizzling : NSObject
-
++ (void)swizzleNSURLSessionTask;
 @end
 
 @implementation _AFURLSessionTaskSwizzling
 
-+ (void)load {
++ (void)swizzleNSURLSessionTask {
     /**
      WARNING: Trouble Ahead
      https://github.com/AFNetworking/AFNetworking/pull/2702
@@ -473,6 +473,10 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
 @end
 
 @implementation AFURLSessionManager
+
++ (void)initialize {
+    [_AFURLSessionTaskSwizzling swizzleNSURLSessionTask];
+}
 
 - (instancetype)init {
     return [self initWithSessionConfiguration:nil];
